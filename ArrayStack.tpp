@@ -1,6 +1,10 @@
 template <typename T>
 ArrayStack<T>::ArrayStack(int i) {
     // TODO
+    // this is the constructor function i think this wants me to create an array stack of length i?
+    maxSize = i;
+    this->length = 0;
+    buffer = new T[i];
 }
 
 template <typename T>
@@ -25,11 +29,40 @@ ArrayStack<T>::~ArrayStack() {
 template <typename T>
 void ArrayStack<T>::clear() {
     // TODO
+    // done
+    // this function is to clear the array stack, but does this also mean to delete it?
+    if(buffer){
+        // since this is dynamic memory we just delete it;
+        delete[] buffer;
+    }
+    this->length = 0;
+    maxSize = 0;
+    buffer = nullptr;
 }
 
 template <typename T>
 void ArrayStack<T>::copy(const ArrayStack<T>& copyObj) {
     // TODO
+    // done
+    // this function is to copy the current array stack to the copy object
+
+    // making buffer a default with length of the argument stack
+    if(copyObj.maxSize == 0){
+        if(buffer) delete[] buffer;
+        buffer = nullptr;
+        this->length = 0;
+        maxSize = 0;
+        return;
+    }
+
+    buffer = new T[copyObj.length];
+
+
+    for(int i = 0; i < copyObj.length; i++){
+        buffer[i] = copyObj.buffer[i];
+    }
+    this->length = copyObj.length;
+    maxSize = copyObj.maxSize;
 }
 
 template <typename T>
@@ -55,21 +88,95 @@ bool ArrayStack<T>::isFull() const {
 template <typename T>
 T ArrayStack<T>::peek() const {
     // TODO
+    // DONE
+    // this funciton is to look at the top value of the arraystack
+
+    if(this->length == 0 || buffer == nullptr){
+        throw string("Error peek: the stack is empty!");
+    }
+
+    return buffer[this->length-1];
 }
 
 template <typename T>
 void ArrayStack<T>::pop() {
     // TODO
+    // this function removes the last item in the array stack
+
+    if(this->length == 0){
+        return;
+    }
+
+    int newLen = this->length -1;
+    
+    T* temp = new T[newLen];
+    // copies over all elements except the last one
+    for(int i = 0; i < this->length-1; i++){
+        temp[i] = buffer[i];
+    }
+
+    delete[] buffer;
+    buffer = temp;
+
+    this->length--;
 }
 
 template <typename T>
 void ArrayStack<T>::push(const T& elem) {
     // TODO
+    // this functino pushes elem to the back of the stack
+
+    if(this->length == maxSize){
+        // if we want to add to a full array, we need to make a new array of greater size
+        int newSize = maxSize * 2;
+        if(newSize == 0) newSize = 1;
+
+        T* temp = new T[newSize];
+
+        for(int i = 0; i < this->length; ++i){
+            temp[i] = buffer[i];
+        }
+        
+        delete[] buffer;
+
+        buffer = temp;
+        maxSize = newSize;
+    }
+
+    buffer[this->length] = elem;
+    this->length++;
+
+    
 }
 
 template <typename T>
 void ArrayStack<T>::rotate(typename Stack<T>::Direction dir) {
     // TODO
+    // DONE
+    // this function either brings the back elem the front, or the front elem to the back
+    
+    // top elem goes to bottom
+    if(this->length == 0 || this->length == 1){
+        return;
+    }
+    if(dir == Stack<T>::RIGHT){
+        T temp = buffer[this->length-1];
+        // shift every element to the right
+        for(int i = this->length-1; i > 0;i--){
+            buffer[i] = buffer[i-1];
+        }
+        buffer[0] = temp;
+
+    }
+    // bottom element goes to top
+    else if(dir == Stack<T>::LEFT){
+        T temp = buffer[0];
+        // shift every element to the left
+        for(int i = 0; i < this->length - 1;i++){
+            buffer[i] = buffer[i+1];
+        }
+        buffer[this->length-1] = temp;
+    }
 }
 
 template <typename T>

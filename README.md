@@ -7,6 +7,11 @@
 You will be implementing the Stack ADT as an array-based class. The `Stack` abstract class is already given to you, along with the header file for the `ArrayStack` class, and a skeleton of its implementation file.
 
 You are also in charge of writing your own driver program to test your `ArrayStack` class. Be thorough with your testing by checking all the operations in different scenarios and with various data types. 
+
+## Todo List
+- [ ] tpp file implementations
+- [ ] write driver program
+
 #### Do not edit/rename lab09-main.cpp. Write your own driver file to test and upload results to canvas. Make sure your driver includes tests for rotation.
 
 ## Notes
