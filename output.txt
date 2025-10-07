@@ -1,0 +1,25 @@
+./driver
+array has been created
+Error peek: the stack is empty!
+1
+2
+3
+4
+5
+copied object: 1
+copied object: 2
+copied object: 3
+copied object: 4
+copied object: 5
+copy has been made
+5
+rotated right
+4
+rotated left
+5
+4
+Error peek: the stack is empty!
+Error peek: the stack is empty!
+
+./lab09-main
+0 1 2 3 4 5 6 7 8 9 Stack A is full! Stack A length: 10Stack B length: 10Error push: array is full,cannot pushPopping 9 from stack BPopping 8 from stack BPopping 7 from stack BPopping 6 from stack BPopping 5 from stack BStack B length: 5Stack B is now empty after being clearedError pop: array is emptyError peek: the stack is empty!Stack A length: 10Stack C length: 10
