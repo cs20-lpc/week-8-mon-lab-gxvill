@@ -31,13 +31,7 @@ void ArrayStack<T>::clear() {
     // TODO
     // done
     // this function is to clear the array stack, but does this also mean to delete it?
-    if(buffer){
-        // since this is dynamic memory we just delete it;
-        delete[] buffer;
-    }
     this->length = 0;
-    maxSize = 0;
-    buffer = nullptr;
 }
 
 template <typename T>
@@ -55,7 +49,7 @@ void ArrayStack<T>::copy(const ArrayStack<T>& copyObj) {
         return;
     }
 
-    buffer = new T[copyObj.length];
+    buffer = new T[copyObj.maxSize];
 
 
     for(int i = 0; i < copyObj.length; i++){
@@ -103,21 +97,9 @@ void ArrayStack<T>::pop() {
     // TODO
     // this function removes the last item in the array stack
 
-    if(this->length == 0){
-        return;
+    if(this->length == 0 || !buffer){
+        throw string("Error pop: array is empty");
     }
-
-    int newLen = this->length -1;
-    
-    T* temp = new T[newLen];
-    // copies over all elements except the last one
-    for(int i = 0; i < this->length-1; i++){
-        temp[i] = buffer[i];
-    }
-
-    delete[] buffer;
-    buffer = temp;
-
     this->length--;
 }
 
@@ -127,20 +109,7 @@ void ArrayStack<T>::push(const T& elem) {
     // this functino pushes elem to the back of the stack
 
     if(this->length == maxSize){
-        // if we want to add to a full array, we need to make a new array of greater size
-        int newSize = maxSize * 2;
-        if(newSize == 0) newSize = 1;
-
-        T* temp = new T[newSize];
-
-        for(int i = 0; i < this->length; ++i){
-            temp[i] = buffer[i];
-        }
-        
-        delete[] buffer;
-
-        buffer = temp;
-        maxSize = newSize;
+        throw string("Error push: array is full,cannot push");
     }
 
     buffer[this->length] = elem;
