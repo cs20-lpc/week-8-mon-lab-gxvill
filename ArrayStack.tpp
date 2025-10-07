@@ -86,7 +86,7 @@ T ArrayStack<T>::peek() const {
     // this funciton is to look at the top value of the arraystack
 
     if(this->length == 0 || buffer == nullptr){
-        throw string("Error peek: the stack is empty!");
+        throw string("peek: error, stack is empty, cannot access the top");
     }
 
     return buffer[this->length-1];
@@ -98,7 +98,7 @@ void ArrayStack<T>::pop() {
     // this function removes the last item in the array stack
 
     if(this->length == 0 || !buffer){
-        throw string("Error pop: array is empty");
+        throw string("pop: error, stack is empty, avoiding underflow");
     }
     this->length--;
 }
@@ -109,7 +109,7 @@ void ArrayStack<T>::push(const T& elem) {
     // this functino pushes elem to the back of the stack
 
     if(this->length == maxSize){
-        throw string("Error push: array is full,cannot push");
+        throw string("push: error, stack is full, avoiding overflow");
     }
 
     buffer[this->length] = elem;
